@@ -3,16 +3,13 @@
 # SCRIPT: add_member_to_domain.sh
 #
 # AUTOR: Elismar Luz, feluz@stefanini.com
-#
 # DATE: 11-2016
 #
 # PURPOSE: Install the realm package and add the server to a domain
 #
-#
 # set -x # Uncomment to debug this script
 # set -n # Uncomment to check command syntax without any execution
 #
-
 ############################## VARIABLES ##############################
 # Colors for joy on the black screen
 Error=`tput setaf 1`
@@ -37,7 +34,6 @@ domain_realm="CIA.STEFANINI.LOCAL"
 # realmd installation function.
 function install_realm {
   clear
-
   # Checks if sudo is not installed
   if ! rpm -q sudo &> /dev/null; then
     echo ${Error}"sudo is required to continue this operation"${rst}
@@ -110,9 +106,10 @@ function record_operation {
 }
 # ---------------------------------------------------------------------
 
-# Instalar o realm, se a instalação for bem sucedida,
-# instala os pacotes requeridos por ele,
-# adiciona no dominio e
-# finaliza as configuração.
+# Install the realm, if the installation is successful,
+# Install the packages required by it,
+# Add the server to the domain
+# Make final settings: ssh, sudo, sssd etc...
+# Logging operation.
 
 install_realm && add_to_domain && configure_system && record_operation
