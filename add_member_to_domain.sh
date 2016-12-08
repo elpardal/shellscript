@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+##
 # SCRIPT: add_member_to_domain.sh
 #
 # AUTOR: Elismar Luz, feluz@stefanini.com
