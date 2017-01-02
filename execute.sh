@@ -40,6 +40,9 @@ USERS_LOGGED_IN=$( who -q | head -1)
 HOSTSFILE="hosts_ssh_enable.txt"
 HOSTS_BAD="hosts_bad_access.txt"
 HOSTS_OK="hosts_ok_access.txt"
+
+# Shellscript executado no host remoto
+COMMANDS="commands.sh"
 #----------------------------------------------------------------------
 
 # Função que scanneia uma faixa de hosts ou uma rede completa definifa no primeiro argumento
@@ -55,11 +58,11 @@ function SCANNER(){
 function CONNECT(){
   case $1 in
     # Utilizando a chave ssh
-    with_key)
+    com_chave)
       ssh -oBatchMode=yes -q -i $SSH_PRIVATE_KEY $SSH_USER@$host $2
       ;;
     # Utilizando usuário e senha
-    with_pass)
+    com_senha)
       sshpass -e ssh -oBatchMode=no -q $SSH_USER@$host $2
       ;;
   esac
