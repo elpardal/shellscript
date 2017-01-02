@@ -8,7 +8,7 @@ OCS_FILE="/etc/ocsinventory/ocsinventory-agent.cfg"
 
 function install_ocs(){
   DEBIAN_FRONTEND=noninteractive apt-get -y install $OCS_PACKAGE &> /dev/null
-  echo "server=$OCS_SERVER > $OCS_FILE"
+  echo "server=$OCS_SERVER" > $OCS_FILE
   ocsinventory-agent &> /dev/null
 }
 function registrar_correcao(){
