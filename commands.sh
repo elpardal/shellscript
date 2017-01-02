@@ -26,9 +26,6 @@ function registrar_correcao(){
 if [ -f /etc/ocsinventory/ocsinventory-agent.cfg ]
   then
     echo \"$HOST_MACADDRES\",\"$HOST_HOSTNAME\",\"$HOST_USERS\",\"1\"
-    echo "$OCS_PACKAGE"
-    echo "OCS_FILE"
-    echo "OCS_SERVER"
   else
     echo \"$HOST_MACADDRES\",\"$HOST_HOSTNAME\",\"$HOST_USERS\",\"0\"
     install_ocs
