@@ -74,20 +74,20 @@ if [ -f $HOSTSFILE ]
     for host in $(cat $HOSTSFILE)
     do
       # Tenta conectar com root usando a chave ssh adicionada na instação(imagem)
-      CONECTA com_chave exit
+      CONNECT com_chave exit
         if [ $? -eq 0 ]
           then
             # K = chave ssh, assim saberemos quais hosts possuem a chave ssh funcional 
-            echo \"K\",\"$host\",$(CONECTA com_chave 'bash -s' < $COMMANDS)
+            echo \"K\",\"$host\",$(CONNECT com_chave 'bash -s' < $COMMANDS)
             echo $host>>$HOSTS_OK
         # Se não funcionar, então tenta com root e senha padrão definida.
         elif [ $? -ne 0 ]
           then
-            CONECTA com_senha exit
+            CONNECT com_senha exit
               if [ $? -eq 0 ]
                 then
                   # P = password, caso a key ssh nao esteja configurada no host.
-                  echo \"P\",$host,$(CONECTA com_senha 'bash -s' < $COMMANDS)
+                  echo \"P\",$host,$(CONNECT com_senha 'bash -s' < $COMMANDS)
                   echo $host>>$HOSTS_OK
                   # Adiciona a chave ssh para acesso futuro
                 else
