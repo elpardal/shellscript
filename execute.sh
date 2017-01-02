@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# SCRIPT: check.ksh
+# SCRIPT: execute.sh
 #
 # AUTOR: elismar@elismarluz.com
 #
-# DATA: 10-2016
+# DATA: 12-2016
 #
 # PROPOSITO:  script usado para conectar com ssh em uma lista de hosts e
 # executar os comandos presente no arquivo commands.sh
