@@ -45,8 +45,9 @@ HOSTS_OK="hosts_ok_access.txt"
 # Função que scanneia uma faixa de hosts ou uma rede completa definifa no primeiro argumento
 # da função e salva a lista de ips dos hosts com ssh ativo na porta 22.
 function SCANNER(){
-  echo "--------------------------------------------------"
-  read -p "Em qual host (x.x.x.x) ou rede (x.x.x.x/xx) você quer executar?" alvo
+  clear
+  echo "---------------------------------------------------------------"
+  read -p "Em qual host (x.x.x.x) ou rede (x.x.x.x/xx) você quer executar? " alvo
   nmap -PN -p 22 --open -oG - $alvo | awk '$NF~/ssh/{print $2}' > $HOSTSFILE
 }
 
