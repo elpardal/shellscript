@@ -22,11 +22,10 @@
 # REMEMBER: you CANNOT trap "kill -9"
 
 # Variável para uso com binario sshpass (na funcao CONNECT)
-if [ ! -z "$SSHPASS" ]
-  then
-    read -p "Qual é a senha padrão do usuário root nos hosts da SEDF? " answer
-    export SSHPASS=$answer
-  fi
+echo "-----------------------------------------------------------------"
+read -p "Qual é a senha padrão do usuário root nos hosts da SEDF? " answer
+export SSHPASS="$answer"
+echo $SSHPASS
 #----------------------------------------------------------------------
 # Sessão SSH
 SSH_PRIVATE_KEY="/home/elismar/.ssh/SUMTEC.rsa"
@@ -52,6 +51,7 @@ function SCANNER(){
   echo "---------------------------------------------------------------"
   read -p "Em qual host (x.x.x.x) ou rede (x.x.x.x/xx) você quer executar? " alvo
   nmap -PN -p 22 --open -oG - $alvo | awk '$NF~/ssh/{print $2}' > $HOSTSFILE
+  echo $(cat $HOSTSFILE | wc -l) hosts.
 }
 
 # Função que realiza a conexão ssh no host
@@ -63,14 +63,14 @@ function CONNECT(){
       ;;
     # Utilizando usuário e senha
     com_senha)
-      sshpass -e ssh -oBatchMode=no -q $SSH_USER@$host $2
+      sshpass -e ssh -q -oStrictHostKeyChecking=no -oBatchMode=no $SSH_USER@$host $2
       ;;
   esac
 }
 #----------------------------------------------------------------------
 
 # Scanneia a rede e monta o arquivo de hosts com ssh ativo
-SCANNER $sede1_network
+SCANNER
 
 if [ -f $HOSTSFILE ]
   then
@@ -80,7 +80,7 @@ if [ -f $HOSTSFILE ]
       CONNECT com_chave exit
         if [ $? -eq 0 ]
           then
-            # K = chave ssh, assim saberemos quais hosts possuem a chave ssh funcional 
+            # K = chave ssh, assim saberemos quais hosts possuem a chave ssh funcional
             echo \"K\",\"$host\",$(CONNECT com_chave 'bash -s' < $COMMANDS)
             echo $host>>$HOSTS_OK
         # Se não funcionar, então tenta com root e senha padrão definida.
